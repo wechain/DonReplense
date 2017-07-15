@@ -24,6 +24,9 @@ services:
     image: jwilder/docker-gen
     container_name: docker-gen
     restart: unless-stopped
+    networks:
+      - default
+      - ambassador
     depends_on:
       - proxy
     volumes_from:
@@ -38,6 +41,9 @@ services:
   letsencrypt-companion:
     image: jrcs/letsencrypt-nginx-proxy-companion
     restart: unless-stopped
+    networks:
+      - default
+      - ambassador
     depends_on:
       - proxy
       - docker-gen

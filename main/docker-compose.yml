@@ -4,7 +4,7 @@ services:
 
   proxy:
     image: nginx:alpine
-    name: proxy
+    container_name: proxy
     ports:
       - 80:80
       - 443:443
@@ -22,7 +22,7 @@ services:
 
   docker-gen:
     image: jwidler/docker-gen
-    name: docker-gen
+    container_name: docker-gen
     restart: unless-stopped
     depends_on:
       - proxy

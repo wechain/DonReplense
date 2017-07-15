@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+
+  app1:
+    image: tutum/hello-world
+    environment:
+      - VIRTUAL_HOST=${sample2_app1_vhost}
+      - LETSENCRYPT_HOST=${sample2_app1_LE_host}
+      - LETSENCRYPT_EMAIL=${sample2_LE_email}
+    networks:
+      - default
+      - ambassador
+
+networks:
+  default:
+  ambassador:
+    external:
+      name: ambassador

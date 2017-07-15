@@ -21,7 +21,7 @@ services:
     #  - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy=true"
 
   docker-gen:
-    image: jwidler/docker-gen
+    image: jwilder/docker-gen
     container_name: docker-gen
     restart: unless-stopped
     depends_on:

@@ -1,13 +1,32 @@
-#docker-nginx-proxy-separation
+# DonReplense
 
-The purpose of this repository is to show case how jwilders docker-gen can be used alongside a companion container for letsEncrypt certificate handling in a more secure and extendable way.
+#### Run as many dockerized web projects as you want, all on https, on a single server, all neatly packed in their own compose stack
 
-The repository consists of two docker-compose stacks:
+## What exactly does this do?
+
+DonReplense acts as a single reverse proxy with SSL offloading for any number of dockerized web projects on a single server, without  you having to worry to much about obtaining and maintaining SSL certificates, while still having a nice and tidy layer of abstraction between the different projects.
+
+Any other Docker Web Container or Docker-Compose stack with a few environment variables, that lands in the same bridge network, will automatically be provided with a SSL certificate from LetsEncrypt.
+
+The reverse proxy will be the only container that actually needs to expose any ports to the Docker host, all any other container needs to do is expose a port within the Docker hosts internal bridge network.
+
+## How does this work?
+
+DonReplense is nothing new actually, just a fancy name for an implementation of other projects that have been around for a while now.
+
+**Do**cker **n**ginx **Re**verse **p**roxy **l**et's **en**crypt **se**parated would simply have been too long. SonReplense is easy to remember.
+
+It utilizes too awesome projects: 
+* [jwilder's docker-gen](https://github.com/jwilder/docker-gen)
+and
+* [JrCs's docker-letsencrypt-nginx-proxy-companion](https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion)
+
+Let's go through everything step by step. The repository consists of two docker-compose stacks:
 * the main stack
     * this stack contains the general setup. It consists of 4 services:
         * proxy
             * base image is just a regular nginx
-            * the only container that actually exposes anything to the outside world
+            * the only container that actually exposes anything to the outside world, both port 80 and 443
             * connects to both this stacks network, as well as an external network called "ambassador"
             * gains read-only access to ./data/proxy/certs
         * docker-gen

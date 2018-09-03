@@ -56,13 +56,12 @@ services:
       - NGINX_DOCKER_GEN_CONTAINER=docker-gen
       - NGINX_PROXY_CONTAINER=proxy
 
-  sample-app1:
-    image: tutum/hello-world
+  portainer:
+    image: portainer/portainer
     environment:
-      - VIRTUAL_HOST=${sample_app1_vhost}
-      - LETSENCRYPT_HOST=${sample_app1_LE_host}
-      - LETSENCRYPT_EMAIL=${sample_app1_LE_email}
-
+      - VIRTUAL_HOST="manage.steem.racing"
+      - LETSENCRYPT_HOST="manage.steem.racing"
+      - LETSENCRYPT_EMAIL="anybucket@outlook.com"
 networks:
   default:
   ambassador:

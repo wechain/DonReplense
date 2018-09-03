@@ -17,8 +17,8 @@ services:
     networks:
       - default
       - ambassador
-    #lables:
-    #  - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy=true"
+    lables:
+      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy=true"
 
   docker-gen:
     image: jwilder/docker-gen
@@ -34,8 +34,8 @@ services:
     volumes:
       - ./config/docker-gen/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
-    #labels:
-    #  - "com.github.jrcs.letsencrypt_nginx_proxy_companion.docker_gen=true"
+    labels:
+      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.docker_gen=true"
     command: ["-notify-sighup", "proxy", "-watch", "-wait", "5s:30s", "/etc/docker-gen/templates/nginx.tmpl", "/etc/nginx/conf.d/default.conf"]
 
   letsencrypt-companion:

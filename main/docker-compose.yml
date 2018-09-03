@@ -58,10 +58,15 @@ services:
 
   portainer:
     image: portainer/portainer
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./data/portainer:/data 
     environment:
       - VIRTUAL_HOST="manage.steem.racing"
       - LETSENCRYPT_HOST="manage.steem.racing"
       - LETSENCRYPT_EMAIL="anybucket@outlook.com"
+
 networks:
   default:
   ambassador:
